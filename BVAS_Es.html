@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Calculadora BVAS v3</title>
+
+<style>
+body {
+  background-color: #87CEEB;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 40px 0;
+}
+
+.container {
+  background-color: #fffde7;
+  width: 900px;
+  max-width: 95%;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  margin: 0 auto;
+}
+
+.title-wrapper { text-align: center; }
+
+.title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  text-align: center;
+  color: #3366cc;
+  border: 2px solid #3366cc;
+  border-radius: 8px;
+  background-color: #e6f0ff;
+  padding: 15px 25px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.logo { max-width: 60px; height: auto; }
+
+.inner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.section { margin-bottom: 25px; }
+
+.section h3 {
+  margin-bottom: 10px;
+  color: #3366cc;
+  text-decoration: underline;
+}
+
+.item {
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-label {
+  flex: 1; /* label text takes the left side */
+}
+
+.checkbox-group {
+  display: flex;
+  gap: 20px; /* space between Persistent and New/Worse */
+  min-width: 250px; /* fixed width for alignment */
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #3366cc;
+  color: white;
+}
+
+button:hover { opacity: 0.85; }
+
+.result {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 25px;
+}
+
+.reference {
+  font-size: 12px;
+  margin-top: 40px;
+  color: #555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="title-wrapper">
+    <div class="title">
+      <img src="LogOM5.png" alt="Logo" class="logo">
+      Calculadora BVAS v3
+    </div>
+  </div>
+
+  <div class="inner">
+
+    <!-- GENERAL -->
+    <div class="section">
+      <h3>General (máx persistente 2, nuevo/peor 3)</h3>
+      <div class="item">
+        <div class="item-label">Mialgia (Pers=1; Nuevo/Peor=1):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="general"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="1" data-cat="general"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Artralgia/Artritis (Pers=1; Nuevo/Peor=1):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="general"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="1" data-cat="general"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Fiebre ≥38 °C (Pers=2; Nuevo/Peor=2):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="general"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="2" data-cat="general"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Pérdida de peso ≥2 kg (Pers=2; Nuevo/Peor=2):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="general"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="2" data-cat="general"> Nuevo/Peor</label>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- CUTANEA -->
+    <div class="section">
+      <h3>Cutánea (màx persistent 3, nuevo/peor 6)</h3>
+
+      <div class="item">
+        <div class="item-label">Infarto (necrosis cutánea o hemorragias en astilla)(Pers=1; Nuevo/Peor=2):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="cutania"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="2" data-cat="cutania"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Púrpura (Pers=1; Nuevo/Peor=2):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="cutania"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="2" data-cat="cutania"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Úlcera cutánea (Pers=1; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="cutania"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="cutania"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Gangrena (necrosis extensa de tejidos)(Pers=2; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="cutania"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="cutania"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Otra vasculitis cutánea (lívedo, nódulos subcutáneos, eritema nodoso, etc)(Pers=1; Nuevo/Peor=2):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="cutania"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="2" data-cat="cutania"> Nuevo/Peor</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- MUCOSA/ULLS -->
+    <div class="section">
+      <h3>Mucosas / Ojos (máx persistent 3, nuevo/peor 6)</h3>
+      <div class="item">
+        <div class="item-label">Úlceras o granulomas orales (aftas, úlceras, strawberry gingival hyperplasia) (Pers=1; Nuevo/Peor=2):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="mucoses"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="2" data-cat="mucoses"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Úlceras genitales o periné (Pers=1; Nuevo/Peor=1):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="mucoses"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="1" data-cat="mucoses"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Inflamación de glándula salivar o lagrimal (Pers=2; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="mucoses"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="mucoses"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Proptosis (>2mm)(Pers=2; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="mucoses"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="mucoses"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Episcleritis (Pers=1; Nuevo/Peor=2):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="mucoses"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="2" data-cat="mucoses"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Conjuntivitis/Blefaritis/Queratitis (Pers=1; Nuevo/Peor=1):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat=",mucoses"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="1" data-cat="mucoses"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Disminución agudeza visual respecto a la basal (Pers=2; Nuevo/Peor=3):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="mucoses"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="3" data-cat="mucoses"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Pérdida súbita de visión (Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label style="visibility:hidden;"><input type="checkbox"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="mucoses"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Uveítis (Pers=2; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="mucoses"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="mucoses"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Cambios retinianos (vasculitis, trombosis, exudados o hemorragia)(Pers=2; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="mucoses"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="mucoses"> Nuevo/Peor</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENT -->
+    <div class="section">
+      <h3>ORL (máx persistent 3, nuevo/peor 6)</h3>
+      <div class="item">
+        <div class="item-label">Secreción nasal sanguinolenta/purulenta, costras, úlceras o granulomas nasales (Pers=2; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="ent"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="ent"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Sinusitis (Pers=1; Nuevo/Peor=2):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="ent"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="2" data-cat="ent"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Estenosis subglótica (Pers=3; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="ent"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="ent"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Hipoacúsia de transmisión (Pers=1; Nuevo/Peor=3):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="ent"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="3" data-cat="ent"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Hipoacusia neurosensorial (Pers=2; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="ent"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="ent"> Nuevo/Peor</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHEST -->
+    <div class="section">
+      <h3>Respiratorio (máx persistent 3, nuevo/peor 6)</h3>
+      <div class="item">
+        <div class="item-label">Sibilancias (Pers=1; Nuevo/Peor=2):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="chest"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="2" data-cat="chest"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Nódulos o cavidades en la RX tórax (Nuevo/Peor=3):</div>
+        <div class="checkbox-group">
+          <label style="visibility:hidden;"><input type="checkbox"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="3" data-cat="chest"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Pleuritis (Pers=2; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="chest"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="chest"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Infiltrados pulmonares (Pers=2; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="chest"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="chest"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Pseudotumor o úlceras endobronquiales (Pers=2; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="chest"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="chest"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Hemoptisis masiva o hemorragia alveolar (Pers=4; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="4" data-cat="chest"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="chest"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Insuficiencia respiratoria precisando soporte ventilatorio (Pers=4; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="4" data-cat="chest"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="chest"> Nuevo/Peor</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARDIO -->
+    <div class="section">
+      <h3>Cardiovascular (máx persistent 3, nuevo/peor 6)</h3>
+      <div class="item">
+        <div class="item-label">Ausencia de pulso en arteria periférica (Pers=1; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="cardio"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="cardio"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Cardiopatía valvular (Pers=2; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="cardio"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="cardio"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Pericarditis (Pers=1; Nuevo/Peor=3):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="cardio"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="3" data-cat="cardio"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Angor pectoris (Pers=2; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="cardio"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="cardio"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Cardiomiopatía (Pers=3; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="cardio"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="cardio"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Insuficiencia cardíaca congestiva (Pers=3; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="cardio"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="cardio"> Nuevo/Peor</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABDOMINAL -->
+    <div class="section">
+      <h3>Abdominal (máx persistent 4, nuevo/peor 9)</h3>
+      <div class="item">
+        <div class="item-label">Peritonitis (Pers=3; Nuevo/Peor=9):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="abdominal"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="9" data-cat="abdominal"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Diarrea Sanguinolenta (Pers=3; Nuevo/Peor=9):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="abdominal"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="9" data-cat="abdominal"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Dolor abdominal isquémico (Pers=2; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="abdominal"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="abdominal"> Nuevo/Peor</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- RENAL -->
+    <div class="section">
+      <h3>Renal (máx persistent 6, nuevo/peor 12)</h3>
+      <div class="item">
+        <div class="item-label">Hipertensión (Diastólica >95mmHg)(Pers=1; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="renal"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="renal"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Proteinuria >1+ o >0.2g/dia (Pers=2; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="renal"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="renal"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Hematuria ≥10 erit/campo (Pers=3; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="renal"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="renal"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Creatinina 125–249 μmol/L en la primera visita (Pers=2; Nuevo/Peor=4):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="2" data-cat="renal"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="4" data-cat="renal"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Creatinina 250–499 μmol/L en la primera visita (Pers=3; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="renal"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="renal"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Creatinina ≥500 μmol/L en la primera visita (Pers=4; Nuevo/Peor=8):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="4" data-cat="renal"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="8" data-cat="renal"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Aumento de la creatinina >30% o >25% descenso en el clearance (Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label style="visibility:hidden;"><input type="checkbox"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="renal"> Nuevo/Peor</label>
+        </div>
+    </div>
+
+    <!-- NERVOUS -->
+    <div class="section">
+      <h3>Neurológico (máx persistent 6, nuevo/peor 9)</h3>
+      <div class="item">
+        <div class="item-label">Cefalea inhabitual y persistente (Pers=1; Nuevo/Peor=1):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="nerve"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="1" data-cat="nerve"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Síndrome meníngeo (Pers=1; Nuevo/Peor=3):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="nerve"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="3" data-cat="nerve"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Alteración mental en ausencia de causa metabólica, psiquiátrica o farmacológica (Pers=1; Nuevo/Peor=3):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="1" data-cat="nerve"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="3" data-cat="nerve"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Convulsiones (clínica o EEG, no atribuibles a HTA)(Pers=3; Nuevo/Peor=9):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="nerve"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="9" data-cat="nerve"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Signos neurológicos focales de causa vascular y duración >24h (Pers=3; Nuevo/Peor=9):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="nerve"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="9" data-cat="nerve"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Lesión medular (Pers=3; Nuevo/Peor=9):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="nerve"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="9" data-cat="nerve"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Parálisis de nervio craneal (Pers=3; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="nerve"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="nerve"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Neuropatía periférica sensitiva (Pers=3; Nuevo/Peor=6):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="nerve"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="6" data-cat="nerve"> Nuevo/Peor</label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-label">Mononeuritis múltiple (Pers=3; Nuevo/Peor=9):</div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" class="persistent" data-points="3" data-cat="nerve"> Persistente</label>
+          <label><input type="checkbox" class="newworse" data-points="9" data-cat="nerve"> Nuevo/Peor</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <button onclick="calculate()">Calcular BVAS</button>
+    <button onclick="resetForm()">Reset</button>
+
+    <!-- Result -->
+    <div class="result" id="result"></div>
+
+    <div class="reference">
+      Mukhtyar C et al. Modification and validation of the Birmingham Vasculitis Activity Score (BVAS v3). Ann Rheum Dis. 2008;Dec 3.
+    </div>
+
+  </div>
+</div>
+
+<script>
+const catMax = {
+  "general": {p:2, n:3},
+  "cutania": {p:3, n:6},
+  "mucoses": {p:3, n:6},
+  "ent": {p:3, n:6},
+  "chest": {p:3, n:6},
+  "cardio": {p:3, n:6},
+  "abdominal": {p:4, n:9},
+  "renal": {p:6, n:12},
+  "nerve": {p:6, n:9}
+};
+
+function calculate() {
+  let persistentScores = {};
+  let newScores = {};
+  let totalP = 0, totalN = 0;
+
+  document.querySelectorAll('.persistent').forEach(cb => {
+    let cat = cb.dataset.cat;
+    let pts = parseInt(cb.dataset.points);
+    if (cb.checked) {
+      persistentScores[cat] = (persistentScores[cat]||0) + pts;
+    }
+  });
+
+  document.querySelectorAll('.newworse').forEach(cb => {
+    let cat = cb.dataset.cat;
+    let pts = parseInt(cb.dataset.points);
+    if (cb.checked) {
+      newScores[cat] = (newScores[cat]||0) + pts;
+    }
+  });
+
+  // Apply category maximums
+  for (let cat in persistentScores) {
+    totalP += Math.min(persistentScores[cat], catMax[cat].p);
+  }
+  for (let cat in newScores) {
+    totalN += Math.min(newScores[cat], catMax[cat].n);
+  }
+
+  document.getElementById('result').innerHTML =
+    "Total Persistente: " + totalP + " punts<br>" +
+    "Total Nuevo/Peor: " + totalN + " punts";
+}
+
+function resetForm() {
+  document.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false);
+  document.getElementById('result').innerHTML = "";
+}
+</script>
+
+</body>
+</html>
